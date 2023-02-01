@@ -35,6 +35,9 @@ jobs:
           - laravel: 8.*
             testbench: 6.*
             phpunit: ^8.5
+          - laravel: 9.*
+            testbench: 6.*
+            phpunit: ^9.0
         exclude:
           - laravel: 6.*
             php: 7.1
