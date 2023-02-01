@@ -29,7 +29,8 @@ class TestCase extends \Arubacao\AssetCdn\Test\TestCase
         $actualFiles = array_values($actualFiles);
         $expectedFiles = array_values($expectedFiles);
 
-        $this->assertArraySubset($expectedFiles, $actualFiles);
+        $this->assertTrue(empty(array_diff_key($expectedFiles, $actualFiles)));
+        $this->assertTrue(empty(array_diff_assoc($expectedFiles, $actualFiles)));
         $this->assertCount(count($expectedFiles), $actualFiles);
     }
 
