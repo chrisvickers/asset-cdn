@@ -62,6 +62,7 @@ class SyncCommand extends BaseCommand
 
         foreach ($filesToSync as $file) {
 
+
             $fileRelativePath = $this->isUsingVersion() ?
                 $finder->versionRelativePath($file->getRelativePath(), $this->version()) :
                 $file->getRelativePath();
@@ -76,10 +77,12 @@ class SyncCommand extends BaseCommand
                     $config->get('asset-cdn.filesystem.options')
                 );
 
+
+
             if (! $bool) {
-                $this->error("Problem uploading: {$fileRelativePath}");
+                $this->error("Problem uploading: {$fileRelativePath}/" . $file->getFilename());
             } else {
-                $this->info("Successfully uploaded: {$fileRelativePath}");
+                $this->info("Successfully uploaded: {$fileRelativePath}/" . $file->getFilename());
             }
         }
 
