@@ -56,7 +56,7 @@ class SyncCommand extends BaseCommand
 
 
         $filesToDelete = $this->filesToDelete($filesOnCdn, $localFiles, $this->version());
-        $filesToSync = $this->filesToSync($filesOnCdn, $localFiles);
+        $filesToSync = $this->filesToSync($filesOnCdn, $localFiles, $this->version());
 
 
 
@@ -100,10 +100,16 @@ class SyncCommand extends BaseCommand
      * @param SplFileInfo[] $localFiles
      * @return SplFileInfo[]
      */
-    private function filesToSync(array $filesOnCdn, array $localFiles): array
+    private function filesToSync(array $filesOnCdn, array $localFiles, string $versionedPath = null): array
     {
-        $array = array_filter($localFiles, function (SplFileInfo $localFile) use ($filesOnCdn) {
+        $array = array_filter($localFiles, function (SplFileInfo $localFile) use ($filesOnCdn, $versionedPath) {
             $localFilePathname = $localFile->getRelativePathname();
+
+            if($versionedPath) {
+                $localFilePathname = "$versionedPath/$localFilePathname";
+            }
+
+
             if (! in_array($localFilePathname, $filesOnCdn)) {
                 return true;
             }
@@ -111,7 +117,7 @@ class SyncCommand extends BaseCommand
             $filesizeOfCdn = $this->filesystemManager
                 ->disk($this->filesystem)
                 ->size($localFilePathname);
-
+            
             if ($filesizeOfCdn != $localFile->getSize()) {
                 return true;
             }
