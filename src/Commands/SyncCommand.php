@@ -55,21 +55,24 @@ class SyncCommand extends BaseCommand
         $filesToSync = $this->filesToSync($filesOnCdn, $localFiles);
 
         foreach ($filesToSync as $file) {
+
+            $fileRelativePath = $this->isUsingVersion() ?
+                $finder->versionRelativePath($file->getRelativePath(), $this->version()) :
+                $file->getRelativePath();
+
             $bool = $this->filesystemManager
                 ->disk($this->filesystem)
                 ->putFileAs(
-                    $this->isUsingVersion() ?
-                        $finder->versionRelativePath($file->getRelativePath(), $this->version()) :
-                        $file->getRelativePath(),
+                    $fileRelativePath,
                     new File($file->getPathname()),
                     $file->getFilename(),
                     $config->get('asset-cdn.filesystem.options')
                 );
 
             if (! $bool) {
-                $this->error("Problem uploading: {$file->getRelativePathname()}");
+                $this->error("Problem uploading: {$fileRelativePath}");
             } else {
-                $this->info("Successfully uploaded: {$file->getRelativePathname()}");
+                $this->info("Successfully uploaded: {$fileRelativePath}");
             }
         }
 
