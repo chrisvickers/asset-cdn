@@ -14,7 +14,7 @@ class PushCommand extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'asset-cdn:push';
+    protected $signature = 'asset-cdn:push {--version-path=}';
 
     /**
      * The console command description.
@@ -40,7 +40,9 @@ class PushCommand extends BaseCommand
             $bool = $filesystemManager
                 ->disk($config->get('asset-cdn.filesystem.disk'))
                 ->putFileAs(
-                    $file->getRelativePath(),
+                    $this->isUsingVersion() ?
+                        $finder->versionRelativePath($file->getRelativePath(), $this->version()) :
+                        $file->getRelativePath(),
                     new File($file->getPathname()),
                     $file->getFilename(),
                     $config->get('asset-cdn.filesystem.options')
@@ -53,4 +55,5 @@ class PushCommand extends BaseCommand
             }
         }
     }
+
 }

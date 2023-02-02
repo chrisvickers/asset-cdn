@@ -38,6 +38,12 @@ class Finder
         return $this->mergeFileInfos($includedPaths, $includedNames);
     }
 
+
+    public function versionRelativePath(string $relativePath, string $version) : string
+    {
+        return "$version/$relativePath";
+    }
+
     private function getBaseFinder(): SymfonyFinder
     {
         return SymfonyFinder::create()

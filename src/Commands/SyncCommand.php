@@ -15,7 +15,7 @@ class SyncCommand extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'asset-cdn:sync';
+    protected $signature = 'asset-cdn:sync {--version-path=}';
 
     /**
      * The console command description.
@@ -49,7 +49,7 @@ class SyncCommand extends BaseCommand
         $this->filesystemManager = $filesystemManager;
         $filesOnCdn = $this->filesystemManager
             ->disk($this->filesystem)
-            ->allFiles();
+            ->allFiles($this->version());
         $localFiles = $finder->getFiles();
         $filesToDelete = $this->filesToDelete($filesOnCdn, $localFiles);
         $filesToSync = $this->filesToSync($filesOnCdn, $localFiles);
@@ -58,7 +58,9 @@ class SyncCommand extends BaseCommand
             $bool = $this->filesystemManager
                 ->disk($this->filesystem)
                 ->putFileAs(
-                    $file->getRelativePath(),
+                    $this->isUsingVersion() ?
+                        $finder->versionRelativePath($file->getRelativePath(), $this->version()) :
+                        $file->getRelativePath(),
                     new File($file->getPathname()),
                     $file->getFilename(),
                     $config->get('asset-cdn.filesystem.options')

@@ -13,6 +13,9 @@ use Symfony\Component\Finder\SplFileInfo;
 
 abstract class BaseCommand extends Command
 {
+
+    const VERSION_PATH = 'version-path';
+
     /**
      * @param \Symfony\Component\Finder\SplFileInfo[] $files
      * @return array
@@ -22,5 +25,20 @@ abstract class BaseCommand extends Command
         return array_map(function (SplFileInfo $file) {
             return $file->getRelativePathname();
         }, $files);
+    }
+
+
+    public function isUsingVersion() : bool
+    {
+        return $this->hasOption(static::VERSION_PATH) && $this->option(static::VERSION_PATH);
+    }
+
+
+    public function version() : string|null
+    {
+        if(!$this->isUsingVersion()) {
+            return null;
+        }
+        return $this->option(static::VERSION_PATH);
     }
 }

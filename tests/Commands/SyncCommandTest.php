@@ -209,6 +209,33 @@ class SyncCommandTest extends TestCase
     }
 
     /** @test */
+    public function command_adds_path_using_option()
+    {
+        $this->setFilesInConfig([
+            'include' => [
+                'paths' => [
+                    'js',
+                ],
+            ],
+        ]);
+
+        $expectedFiles = [
+            'js/back.app.js',
+            'js/front.app.js',
+            'vendor/horizon/js/app.js',
+            'vendor/horizon/js/app.js.map',
+        ];
+
+        Artisan::call('asset-cdn:sync --version-path=testing');
+
+        foreach ($expectedFiles as $key => $file) {
+            $expectedFiles[$key] = "testing/$file";
+        }
+
+        $this->assertFilesExistOnCdnFilesystem($expectedFiles);
+    }
+
+    /** @test */
     public function command_receives_options()
     {
         $this->setFilesInConfig([
