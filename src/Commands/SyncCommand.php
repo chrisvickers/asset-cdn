@@ -50,15 +50,22 @@ class SyncCommand extends BaseCommand
         $filesOnCdn = $this->filesystemManager
             ->disk($this->filesystem)
             ->allFiles($this->version());
+
         $localFiles = $finder->getFiles();
-        $filesToDelete = $this->filesToDelete($filesOnCdn, $localFiles);
+
+
+
+        $filesToDelete = $this->filesToDelete($filesOnCdn, $localFiles, $this->version());
         $filesToSync = $this->filesToSync($filesOnCdn, $localFiles);
+
+
 
         foreach ($filesToSync as $file) {
 
             $fileRelativePath = $this->isUsingVersion() ?
                 $finder->versionRelativePath($file->getRelativePath(), $this->version()) :
                 $file->getRelativePath();
+
 
             $bool = $this->filesystemManager
                 ->disk($this->filesystem)
@@ -129,11 +136,17 @@ class SyncCommand extends BaseCommand
      * @param SplFileInfo[] $localFiles
      * @return string[]
      */
-    private function filesToDelete(array $filesOnCdn, array $localFiles): array
+    private function filesToDelete(array $filesOnCdn, array $localFiles, string $versioned_path = null): array
     {
         $localFiles = $this->mapToPathname($localFiles);
 
-        $array = array_filter($filesOnCdn, function (string $fileOnCdn) use ($localFiles) {
+        $array = array_filter($filesOnCdn, function (string $fileOnCdn) use ($localFiles, $versioned_path) {
+            if($versioned_path) {
+                $localFiles  = array_map(function (string $file) use ($versioned_path)  {
+                    return "$versioned_path/$file";
+                }, $localFiles);
+            }
+
             return ! in_array($fileOnCdn, $localFiles);
         });
 

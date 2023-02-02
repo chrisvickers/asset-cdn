@@ -235,6 +235,43 @@ class SyncCommandTest extends TestCase
         $this->assertFilesExistOnCdnFilesystem($expectedFiles);
     }
 
+
+    /** @test */
+    public function command_deletes_file_if_using_path()
+    {
+        $this->seedCdnFilesystem([
+            [
+                'path' => 'css',
+                'filename' => 'front.css',
+                'version-path'  =>  'testing/css'
+            ],
+        ]);
+
+        $this->setFilesInConfig([
+            'include' => [
+                'files' => [
+                    'front.css',
+                ],
+            ],
+        ]);
+
+        $expectedFiles = [
+            'testing/css/front.css',
+        ];
+
+        $modifiedBeforeSync = Storage::disk('test_filesystem')
+            ->lastModified('testing/css/front.css');
+
+        Artisan::call('asset-cdn:sync --version-path=testing');
+
+        $this->assertFilesExistOnCdnFilesystem($expectedFiles);
+
+        $modifiedAfterSync = Storage::disk('test_filesystem')
+            ->lastModified('testing/css/front.css');
+
+        $this->assertEquals($modifiedBeforeSync, $modifiedAfterSync);
+    }
+
     /** @test */
     public function command_receives_options()
     {

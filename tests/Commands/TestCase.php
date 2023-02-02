@@ -37,7 +37,7 @@ class TestCase extends \Arubacao\AssetCdn\Test\TestCase
     /**
      * @param array $files
      */
-    protected function seedCdnFilesystem($files)
+    protected function seedCdnFilesystem(array $files)
     {
         foreach ($files as $file) {
             $srcPath = $file['base'] ?? public_path();
@@ -45,7 +45,7 @@ class TestCase extends \Arubacao\AssetCdn\Test\TestCase
 
             Storage::disk('test_filesystem')
                 ->putFileAs(
-                    $file['path'],
+                    $file['version-path'] ?? $file['path'],
                     new \Illuminate\Http\File($source),
                     $file['filename']
                 );
