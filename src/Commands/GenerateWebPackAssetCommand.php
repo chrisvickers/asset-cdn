@@ -14,7 +14,7 @@ class GenerateWebPackAssetCommand extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'asset-cdn:generate:webpack {file-location} {version-path}';
+    protected $signature = 'asset-cdn:generate:webpack {version-path}';
 
 
     /**
@@ -41,7 +41,12 @@ class GenerateWebPackAssetCommand extends BaseCommand
         $this->filesystem = $config->get('asset-cdn.filesystem.disk');
         $this->filesystemManager = $filesystemManager;
 
-        $fileLocation = $this->argument('file-location');
+        $fileLocation = config('asset-cdn.webpack.location');
+
+        if(!$fileLocation) {
+            $this->error('Webpack Location is not set.');
+            return;
+        }
 
         if (!file_exists($fileLocation)) {
             touch($fileLocation);
@@ -65,9 +70,25 @@ class GenerateWebPackAssetCommand extends BaseCommand
 
     private function getFilesToWrite() : array
     {
-        return $this->filesystemManager
+        $files = $this->filesystemManager
             ->disk($this->filesystem)
             ->allFiles($this->version());
+
+        $excluded = config('asset-cdn.webpack.exclude');
+        $extensions = config('asset-cdn.webpack.hashes');
+
+        return array_filter($files, function ($file) use ($excluded, $extensions) {
+
+            if(in_array(basename($file), $excluded['files'])) {
+                return false;
+            }
+
+            if(in_array(pathinfo($file, PATHINFO_EXTENSION), $extensions['extensions'])) {
+                return false;
+            }
+
+            return true;
+        });
     }
 
     protected function getVersion()
@@ -86,34 +107,11 @@ class GenerateWebPackAssetCommand extends BaseCommand
             $file = basename($file);
             $ext = pathinfo($file, PATHINFO_EXTENSION);
 
-            dd($file);
-
-
             $fileWithoutExtension = str_ireplace(".$ext", '', $file);
             $dataToWrite[$fileWithoutExtension][$ext] = $file;
         }
 
         return $dataToWrite;
     }
-
-
-
-    /**
-     * {
-    "version-path" : "v23.02.01",
-    "business": {
-    "js": "/business-a880e71654d40e32.js",
-    "css": "/business.bd3a43cefeaf2330.css"
-    },
-    "runtime": {
-    "js": "/runtime-a880e71654d40e32.js"
-    },
-    "": {
-    "ttf": "/f1a45d7466ff780d.ttf",
-    "woff": "/ff18efd173a3b2c1.woff"
-    }
-    }
-
-     */
 
 }

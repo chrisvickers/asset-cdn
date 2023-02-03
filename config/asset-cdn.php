@@ -24,6 +24,11 @@ return [
             'extensions'    =>  [
                 //
             ]
+        ],
+        'hashes'    =>  [
+            'extension' =>  [
+                //
+            ]
         ]
     ],
 
