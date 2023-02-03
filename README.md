@@ -1,14 +1,6 @@
-<p align="center"><img src="https://raw.githubusercontent.com/arubacao/asset-cdn/master/asset-cdn.png"></p>
+[![Run Tests](https://github.com/chrisvickers/asset-cdn/actions/workflows/run-tests.yml/badge.svg)](https://github.com/chrisvickers/asset-cdn/actions/workflows/run-tests.yml)
 
-<p align="center">
-<a href="https://packagist.org/packages/arubacao/asset-cdn"><img src="https://img.shields.io/packagist/v/arubacao/asset-cdn.svg?style=flat-square" alt="Latest Stable Version"></a>
-<a href="https://github.com/arubacao/asset-cdn/actions?query=workflow%3A%22Run+Tests%22"><img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/arubacao/asset-cdn/Run%20Tests?style=flat-square"></a>
-<a href="https://codecov.io/gh/arubacao/asset-cdn"><img src="https://img.shields.io/codecov/c/github/arubacao/asset-cdn.svg?style=flat-square" alt="Codecov"></a>
-<a href="https://scrutinizer-ci.com/g/arubacao/asset-cdn"><img src="https://img.shields.io/scrutinizer/g/arubacao/asset-cdn.svg?style=flat-square" alt="Quality Score"></a>
-<a href="https://packagist.org/packages/arubacao/asset-cdn"><img src="https://img.shields.io/packagist/dt/arubacao/asset-cdn.svg?style=flat-square" alt="Total Downloads"></a>
-</p>
-
-<p align="center"><strong>
+<p ><strong>
 Serve Laravel Assets from a Content Delivery Network (CDN)
 </strong></p>
 
@@ -38,11 +30,8 @@ $ php artisan asset-cdn:sync
 Install this package via composer:
 
 ```bash
-$ composer require arubacao/asset-cdn
+$ composer require chrisvickers/asset-cdn
 ```
-
-Notes:
- - `arubacao/asset-cdn` is functional and fully tested for Laravel `6.0` - `8.*` on PHP `7.2`, `7.3, 7.4`
 
 ## Configuration
 
@@ -51,8 +40,8 @@ Notes:
 _Only required if you plan to manage your assets via the provided commands: `asset-cdn:push`, `asset-cdn:sync`, `asset-cdn:empty`_
 
 
-`arubacao/asset-cdn` utilizes [Laravel's Filesystem](https://laravel.com/docs/5.6/filesystem) to **push**, **sync**, **delete** assets to/from the CDN of your choice.
 Therefore, you have to configure and define a filesystem specific for CDN purposes. 
+`chrisvickers/asset-cdn` utilizes [Laravel's Filesystem](https://laravel.com/docs/5.6/filesystem) to **push**, **sync**, **delete** assets to/from the CDN of your choice.
 Please follow the [official documentation]((https://laravel.com/docs/5.6/filesystem)).
 
 If you plan to use AWS S3/Cloudfront you can use this configuration:
@@ -232,11 +221,3 @@ Replace [`asset()`](https://laravel.com/docs/5.6/helpers#method-asset) with `ass
 
 ## Credits:
 Icon from [www.flaticon.com](http://www.flaticon.com/)  
-Unmaintained git repo by [Vinelab](https://github.com/Vinelab/cdn) for inspiration only
-
-## Todo's:
-
- - Video Tutorial: How to use S3/Cloudfront 
- - Write test for `ignoreVCS` finder config
- - Write test for `ignoreDotFiles` finder config
- - Extend `CombinedFinderTest`
