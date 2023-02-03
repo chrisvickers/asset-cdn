@@ -86,6 +86,8 @@ class GenerateWebPackAssetCommand extends BaseCommand
             $file = basename($file);
             $ext = pathinfo($file, PATHINFO_EXTENSION);
 
+
+
             $fileWithoutExtension = str_ireplace(".$ext", '', $file);
             $dataToWrite[$fileWithoutExtension][$ext] = $file;
         }
