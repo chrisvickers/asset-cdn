@@ -47,7 +47,7 @@ class TestCase extends \Arubacao\AssetCdn\Test\TestCase
                 ->putFileAs(
                     $file['version-path'] ?? $file['path'],
                     new \Illuminate\Http\File($source),
-                    $file['filename']
+                     $file['filename']
                 );
         }
     }

@@ -51,10 +51,7 @@ abstract class TestCase extends Orchestra
      */
     protected function getEnvironmentSetUp($app)
     {
-//        $app['config']->set('filesystems.disks.public', [
-//            'driver' => 'local',
-//            'root' => $this->getMediaDirectory(),
-//        ]);
+
         $app['config']->set('app.key', 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
         $app['config']->set('filesystems.disks.test_filesystem', [
             'driver' => 'local',

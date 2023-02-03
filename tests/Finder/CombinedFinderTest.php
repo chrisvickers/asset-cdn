@@ -32,6 +32,7 @@ class CombinedFinderTest extends TestCase
             'manifest.json',
             'mix-manifest.json',
             'vendor/horizon/mix-manifest.json',
+            'webpack.json'
         ];
 
         $this->assertFilesMatchConfig($expectedFiles, $fileConfig);

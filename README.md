@@ -41,19 +41,8 @@ Install this package via composer:
 $ composer require arubacao/asset-cdn
 ```
 
-Also register the service provider:  
-_Only required for Laravel `<=5.4`, for Laravel `>=5.5` [auto-discovery](composer.json#L45) is enabled._
-```PHP
-// config/app.php
-
-'providers' => [
-    // Other Service Providers
-    \Arubacao\AssetCdn\AssetCdnServiceProvider::class,
-],
-```
-Notes:  
-
- - `arubacao/asset-cdn` is functional and fully tested for Laravel `5.4` - `8.*` on PHP `7.0`, `7.1`, `7.2`, `7.3, 7.4`
+Notes:
+ - `arubacao/asset-cdn` is functional and fully tested for Laravel `6.0` - `8.*` on PHP `7.2`, `7.3, 7.4`
 
 ## Configuration
 

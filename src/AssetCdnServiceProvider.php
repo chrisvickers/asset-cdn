@@ -3,6 +3,7 @@
 namespace Arubacao\AssetCdn;
 
 use Arubacao\AssetCdn\Commands\EmptyCommand;
+use Arubacao\AssetCdn\Commands\GenerateWebPackAssetCommand;
 use Arubacao\AssetCdn\Commands\PushCommand;
 use Arubacao\AssetCdn\Commands\SyncCommand;
 use Spatie\LaravelPackageTools\Package;
@@ -27,7 +28,8 @@ class AssetCdnServiceProvider extends PackageServiceProvider
             ->hasCommands([
                 PushCommand::class,
                 SyncCommand::class,
-                EmptyCommand::class
+                EmptyCommand::class,
+                GenerateWebPackAssetCommand::class
             ])
             ->hasConfigFile('asset-cdn');
     }

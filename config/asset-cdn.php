@@ -14,6 +14,14 @@ return [
         ],
     ],
 
+
+    'webpack'   =>  [
+        'location'  =>  env('CDN_WEBPACK_LOCATION'),
+        'exclude'   =>  [
+            //
+        ]
+    ],
+
     'files' => [
         'ignoreDotFiles' => true,
 
