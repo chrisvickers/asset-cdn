@@ -108,7 +108,7 @@ class GenerateWebPackAssetCommand extends BaseCommand
             $ext = pathinfo($file, PATHINFO_EXTENSION);
 
             $fileWithoutExtension = str_ireplace(".$ext", '', $file);
-            $dataToWrite[$this->fileNameWithoutHashed($fileWithoutExtension, $ext)][$ext] = $file;
+            $dataToWrite[$this->fileNameWithoutHashed($fileWithoutExtension, $ext)][$ext] = "/$file";
         }
 
         return $dataToWrite;
