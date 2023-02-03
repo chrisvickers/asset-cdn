@@ -67,8 +67,8 @@ class GenerateWebPackAssetCommandTest extends TestCase
 
         $fileContents = json_decode(file_get_contents($this->file_path), true);
 
-        $this->assertTrue($fileContents['css/back']['css'] == 'css/back.css');
-        $this->assertTrue($fileContents['css/front']['css'] == 'css/front.css');
-        $this->assertTrue($fileContents['js/back.app']['js'] == 'js/back.app.js');
+        $this->assertTrue($fileContents['back']['css'] == 'back.css');
+        $this->assertTrue($fileContents['front']['css'] == 'front.css');
+        $this->assertTrue($fileContents['back.app']['js'] == 'back.app.js');
     }
 }
