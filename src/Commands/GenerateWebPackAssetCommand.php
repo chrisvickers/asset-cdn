@@ -75,15 +75,15 @@ class GenerateWebPackAssetCommand extends BaseCommand
             ->allFiles($this->version());
 
         $excluded = config('asset-cdn.webpack.exclude');
-        $extensions = config('asset-cdn.webpack.hashes');
+        $extensions = config('asset-cdn.webpack');
 
-        return array_filter($files, function ($file) use ($excluded, $extensions) {
+        return array_filter($files, function ($file) use ($excluded) {
 
             if(in_array(basename($file), $excluded['files'])) {
                 return false;
             }
 
-            if(in_array(pathinfo($file, PATHINFO_EXTENSION), $extensions['extensions'])) {
+            if(in_array(pathinfo($file, PATHINFO_EXTENSION), $excluded['extensions'])) {
                 return false;
             }
 
@@ -108,10 +108,25 @@ class GenerateWebPackAssetCommand extends BaseCommand
             $ext = pathinfo($file, PATHINFO_EXTENSION);
 
             $fileWithoutExtension = str_ireplace(".$ext", '', $file);
-            $dataToWrite[$fileWithoutExtension][$ext] = $file;
+            $dataToWrite[$this->fileNameWithoutHashed($fileWithoutExtension, $ext)][$ext] = $file;
         }
 
         return $dataToWrite;
+    }
+
+
+    protected function fileNameWithoutHashed(string $filename, string $extension) : string
+    {
+        $extensionHashes = config('asset-cdn.webpack.hashes');
+
+        $extensionSplit = $extensionHashes['extension'][$extension] ?? null;
+
+        if(!$extensionSplit) {
+            return $filename;
+        }
+
+        $explodedFileName = explode($extensionSplit, $filename);
+        return $explodedFileName[0];
     }
 
 }
