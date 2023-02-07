@@ -1,5 +1,5 @@
 {
-    "name": "chrisvickers/asset-cdn",
+    "name": "grininc/asset-cdn",
     "description": "Serve Laravel Assets from a Content Delivery Network (CDN)",
     "keywords": [
         "Laravel",
@@ -7,7 +7,7 @@
         "Content Delivery Network",
         "AWS Cloudfront"
     ],
-    "homepage": "https://github.com/chrisvickers/asset-cdn",
+    "homepage": "https://github.com/grininc/asset-cdn",
     "license": "MIT",
     "require": {
         "php": "^8.0",
