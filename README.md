@@ -1,4 +1,4 @@
-[![Run Tests](https://github.com/chrisvickers/asset-cdn/actions/workflows/run-tests.yml/badge.svg)](https://github.com/chrisvickers/asset-cdn/actions/workflows/run-tests.yml)
+[![Run Tests](https://github.com/grininc/asset-cdn/actions/workflows/run-tests.yml/badge.svg)](https://github.com/grininc/asset-cdn/actions/workflows/run-tests.yml)
 
 <p ><strong>
 Serve Laravel Assets from a Content Delivery Network (CDN)
@@ -30,7 +30,7 @@ $ php artisan asset-cdn:sync
 Install this package via composer:
 
 ```bash
-$ composer require chrisvickers/asset-cdn
+$ composer require grininc/asset-cdn
 ```
 
 ## Configuration
@@ -41,7 +41,7 @@ _Only required if you plan to manage your assets via the provided commands: `ass
 
 
 Therefore, you have to configure and define a filesystem specific for CDN purposes. 
-`chrisvickers/asset-cdn` utilizes [Laravel's Filesystem](https://laravel.com/docs/5.6/filesystem) to **push**, **sync**, **delete** assets to/from the CDN of your choice.
+`grininc/asset-cdn` utilizes [Laravel's Filesystem](https://laravel.com/docs/5.6/filesystem) to **push**, **sync**, **delete** assets to/from the CDN of your choice.
 Please follow the [official documentation]((https://laravel.com/docs/5.6/filesystem)).
 
 If you plan to use AWS S3/Cloudfront you can use this configuration:
