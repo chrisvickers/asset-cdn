@@ -14,7 +14,7 @@ class GenerateWebPackAssetCommand extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'asset-cdn:generate:webpack {version-path}';
+    protected $signature = 'asset-cdn:generate:webpack {--version-path=}';
 
 
     /**
@@ -57,7 +57,7 @@ class GenerateWebPackAssetCommand extends BaseCommand
             $fileLocation,
             json_encode(
                 $this->buildJsonFile(
-                    $this->getVersion(),
+                    $this->version(),
                     $this->getFilesToWrite()
                 )
             )
@@ -89,11 +89,6 @@ class GenerateWebPackAssetCommand extends BaseCommand
 
             return true;
         });
-    }
-
-    protected function getVersion()
-    {
-        return $this->argument('version-path');
     }
 
 
