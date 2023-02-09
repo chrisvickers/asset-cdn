@@ -95,7 +95,7 @@ class GenerateWebPackAssetCommand extends BaseCommand
     protected function buildJsonFile(string $version, array $files) : array
     {
         $dataToWrite = [
-            'version-path'   =>  $this->getVersion()
+            'version-path'   =>  $this->version()
         ];
 
         foreach ($files as $file) {
