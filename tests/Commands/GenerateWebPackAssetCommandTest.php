@@ -18,7 +18,7 @@ class GenerateWebPackAssetCommandTest extends TestCase
     /** @test */
     public function a_webpack_file_is_generated()
     {
-        Artisan::call('asset-cdn:generate:webpack testing');
+        Artisan::call('asset-cdn:generate:webpack --version-path=testing');
 
         $this->assertFileExists($this->file_path);
     }
@@ -26,7 +26,7 @@ class GenerateWebPackAssetCommandTest extends TestCase
     /** @test */
     public function a_webpack_file_has_a_version_identified()
     {
-        Artisan::call('asset-cdn:generate:webpack testing');
+        Artisan::call('asset-cdn:generate:webpack --version-path=testing');
 
         $this->assertFileExists($this->file_path);
 
@@ -61,7 +61,7 @@ class GenerateWebPackAssetCommandTest extends TestCase
             ],
         ]);
 
-        Artisan::call('asset-cdn:generate:webpack testing');
+        Artisan::call('asset-cdn:generate:webpack --version-path=testing');
 
         $this->assertFileExists($this->file_path);
 
