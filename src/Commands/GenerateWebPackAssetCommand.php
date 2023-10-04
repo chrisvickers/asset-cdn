@@ -121,7 +121,8 @@ class GenerateWebPackAssetCommand extends BaseCommand
         }
 
         $explodedFileName = explode($extensionSplit, $filename);
-        return $explodedFileName[0];
+        array_pop($explodedFileName);
+        return implode($extensionSplit, $explodedFileName);
     }
 
 }
