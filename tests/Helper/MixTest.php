@@ -44,9 +44,7 @@ class MixTest extends TestCase
     /** @test */
     public function mix_cdn_throws_exception_with_no_manifest_file()
     {
-        $this->app->bind('path.public', function () {
-            return __DIR__.'/../testfiles/dummy';
-        });
+        app()->usePublicPath(__DIR__.'/../testfiles/dummy');
 
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('The Mix manifest does not exist.');

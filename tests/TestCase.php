@@ -62,9 +62,7 @@ abstract class TestCase extends Orchestra
         $app['config']->set('asset-cdn.cdn_url', 'http://cdn.localhost');
         $app['config']->set('asset-cdn.filesystem.disk', 'test_filesystem');
 
-        $app->bind('path.public', function () {
-            return __DIR__.'/testfiles/public';
-        });
+        app()->usePublicPath(__DIR__.'testfiles/public');
     }
 
     protected function setFilesInConfig(array $config)
